@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Damianinho Streaming Wrapper</title>
+  <meta http-equiv="refresh" content="30"> <!-- ricarica ogni 30 secondi -->
+  <style>
+    html, body { margin:0; padding:0; width:100%; height:100%; overflow:hidden; background:black; }
+    iframe { width:100%; height:100%; border:none; }
+  </style>
+</head>
+<body>
+  <iframe id="web" src=""></iframe>
+
+  <script>
+    const CONFIG_URL = "https://raw.githubusercontent.com/damianinho5-cell/damianinho-config/refs/heads/main/damianinho.json";
+    const FALLBACK_URL = "https://streamingcommunityz.coupons";
+
+    async function loadDomain() {
+      try {
+        const res = await fetch(CONFIG_URL);
+        const data = await res.json();
+        const domain = data.activeDomain || FALLBACK_URL;
+        document.getElementById("web").src = domain;
+      } catch(e) {
+        document.getElementById("web").src = FALLBACK_URL;
+      }
+    }
+
+    loadDomain();
+  </script>
+</body>
+</html>
